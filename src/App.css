@@ -1,3 +1,11 @@
+.root {
+  font-family: 'Roboto';
+}
+
+body {
+  font-family: 'Roboto';
+}
+
 .App {
   text-align: center;
 }
