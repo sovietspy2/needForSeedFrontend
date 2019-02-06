@@ -1,21 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import './App.css';
-import List from "./containers/list";
+
 import 'typeface-roboto';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Test from "./containers/pageTest";
+import Home from "./containers/home";
 
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          Hello there what
-          <h1> ROBOFONT </h1>
 
-        <List/>
-        </header>
+        <Router>
+      <div>
+        <ul>
+          <li>
+            <Link to="/test">Test</Link>
+          </li>
+          <li>
+            <Link to="/">HOme</Link>
+            </li>
+        </ul>
+
+        <hr />
+
+        <Route exact path="/" component={Home} />
+        <Route path="/test" component={Test} />
+      </div>
+    </Router>
+
+
       </div>
     );
   }
