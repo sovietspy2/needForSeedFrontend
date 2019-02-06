@@ -1,9 +1,20 @@
 import React from "react";
 
-export default function Home() {
+export default class Test extends React.PureComponent {
+
+
+  constructor(props) {
+    super(props);
+  }
+
+
+  render() {
+  console.log(this.props)
     return (
       <div>
-        <h2>Home</h2>
+        <h2>{this.props.extra}</h2>
       </div>
     );
-  };
+  }
+
+}
