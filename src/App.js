@@ -8,6 +8,7 @@ import Test from "./containers/pageTest";
 import Home from "./containers/home";
 import loginPage from "./containers/loginPage";
 import Posts from "./containers/posts";
+import Register from "./containers/register";
 
 class App extends Component {
   render() {
@@ -32,6 +33,9 @@ class App extends Component {
             <li>
               <Link to="/posts">Posts</Link>
             </li>
+            <li>
+            <Link to="/register">Register</Link>
+              </li>
         </ul>
 
         <hr />
@@ -40,6 +44,7 @@ class App extends Component {
           render={props => <Posts {...props} extra={helloText}/>}
         />
         <Route exact path="/" component={Home} />
+        <Route exact path="/register" component={Register} />
         <Route 
             path="/test" 
             render={props => <Test {...props} extra={helloText} />} />
