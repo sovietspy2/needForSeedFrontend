@@ -1,3 +1,4 @@
+import styles from './style.css';
 import React from "react";
 
 export default class Test extends React.PureComponent {
@@ -11,7 +12,7 @@ export default class Test extends React.PureComponent {
   render() {
   console.log(this.props)
     return (
-      <div>
+      <div className={styles.test}>
         <h2>{this.props.extra}</h2>
       </div>
     );

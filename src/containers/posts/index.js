@@ -7,8 +7,11 @@ export default class posts extends Component {
       super(props);
 
       this.state = {
-        message:"not fetched"
+        message:"not fetched",
+        appName: props.appName
       }
+
+      console.log(this.state);
     }
     
     componentDidMount() {
@@ -20,6 +23,8 @@ export default class posts extends Component {
 
 
   render() {
+
+    //this.setState({appName:this.props.match.params.postId});
 
     //this.props.extra = this.props.match.params.postId;
 

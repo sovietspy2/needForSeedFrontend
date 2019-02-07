@@ -2,6 +2,11 @@
   font-family: 'Roboto';
 }
 
+.menu {
+  display: flex;
+  align-items: flex-start;
+}
+
 body {
   font-family: 'Roboto';
 }

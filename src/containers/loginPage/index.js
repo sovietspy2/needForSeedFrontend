@@ -9,13 +9,15 @@ import FormControl from '@material-ui/core/FormControl';
 export default class loginPage extends PureComponent {
 
 
-    constructor() {
-        super();
-        this.state = {username: null, password: null};
+    constructor(props) {
+        super(props);
+        this.state = {username: null, password: null, appName: props.appName};
      }
     
      handleChange = name => event => {
         this.setState({ [name]: event.target.value });
+        this.props.stateChanger({appName:event.target.value});
+        console.log("SUCC")
       };
 
 
@@ -23,6 +25,8 @@ export default class loginPage extends PureComponent {
         event.preventDefault();
         console.log(this.state.username, this.state.password);
         console.log("uh oh submitted");
+
+        
      }
 
   render() {

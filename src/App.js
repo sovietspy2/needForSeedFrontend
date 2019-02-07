@@ -6,11 +6,25 @@ import 'typeface-roboto';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Test from "./containers/pageTest";
 import Home from "./containers/home";
-import loginPage from "./containers/loginPage";
+import Login from "./containers/loginPage";
 import Posts from "./containers/posts";
 import Register from "./containers/register";
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      appName: 'def'
+    };
+  }
+
+  stateChanger(obj) {
+    this.setState(obj);
+  }
+
+
   render() {
 
     let helloText = "TEST DEFAULT VALUE"
@@ -20,7 +34,7 @@ class App extends Component {
 
         <Router>
       <div>
-        <ul>
+        <ul className="menu">
           <li>
             <Link to="/test">Test</Link>
           </li>
@@ -39,9 +53,9 @@ class App extends Component {
         </ul>
 
         <hr />
-
+        <p>{this.state.appName}</p>
         <Route path={`/posts/:postId`}
-          render={props => <Posts {...props} extra={helloText}/>}
+          render={props => <Posts {...props} extra={helloText} appName={this.state.appName}/>}
         />
         <Route exact path="/" component={Home} />
         <Route exact path="/register" component={Register} />
@@ -49,7 +63,7 @@ class App extends Component {
             path="/test" 
             render={props => <Test {...props} extra={helloText} />} />
             
-            <Route path="/login" component={loginPage} />
+            <Route path="/login" render={props=> <Login {...props} appName={this.state.appName} stateChanger={this.stateChanger.bind(this)} />} />
       </div>
     </Router>
 
