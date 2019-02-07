@@ -1,11 +1,41 @@
+.grow {
+  flex-grow: 1;
+}
+
+.menuButton {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
+
+
+
+
+
 .root {
   font-family: 'Roboto';
+}
+
+hr {
+  padding: 0;
+  margin: 0;
 }
 
 .menu {
   display: flex;
   align-items: flex-start;
+  list-style-type: none;
 }
+
+.menu li {
+  padding-left: 15px;
+}
+
+footer {
+  background-color: #61dafb;
+  height:30px;
+}
+
+
 
 body {
   font-family: 'Roboto';

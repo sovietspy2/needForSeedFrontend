@@ -4,14 +4,20 @@ import logo from '../logo.svg';
 
 export default class Home extends React.PureComponent{
 
+    constructor(props) {
+      super(props); 
+
+    }
+
     render() {
+      debugger;
       return (
         <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         Hello there what
         <h1> ROBOFONT </h1>
         
-      <List/>
+      <List stateChanger={this.props.stateChanger}/>
       hello there
       </header>
       );

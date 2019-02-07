@@ -8,7 +8,8 @@ export default class List extends PureComponent {
         super(props);
         this.state= {
             items: [],
-            text:'old text'
+            text:'old text',
+            app: props.app
         };
     }
 
@@ -23,6 +24,8 @@ export default class List extends PureComponent {
 
     handleClick = async e => {
         e.preventDefault();
+        debugger;
+            this.props.stateChanger({lol:"test"});
             const response = await fetch('/home', {
             method: 'GET',
             headers: {
@@ -31,6 +34,8 @@ export default class List extends PureComponent {
             });
             const body = await response.text();
             this.setState({ text: body });
+            
+            
     }
 
     renderButton() { 
