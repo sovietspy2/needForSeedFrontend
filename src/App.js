@@ -12,6 +12,7 @@ import Register from "./containers/register";
 import withAuth from './helpers/withAuth';
 import Logout from "./containers/logout";
 import Profile from "./containers/profile";
+import LoginDialog from "./containers/loginDialog";
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -28,21 +29,24 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
+import { browserHistory } from 'react-router';
+
 class App extends Component {
-
-
 
   constructor(props) {
     super(props);
 
     this.state = {
-      app: []
+      app: [],
+      loginDialogOpen: false,
     };
+    this.openLogin = this.openLogin.bind(this);
   }
 
   stateChanger(key,value) {
     this.setState(state => {
-      return state.app[key] = value;
+       state.app[key] = value;
+       return state;
     });
   }
 
@@ -51,23 +55,45 @@ class App extends Component {
     console.log("CLICKED BOTTOM");
   }
 
+  openLogin() {
+    this.setState(state => {
+      state.loginDialogOpen= true;
+      return state;
+    });
+  }
+
+  closeLogin() {
+    this.setState(state => {
+      state.loginDialogOpen= false;
+      return state;
+    });
+  }
+
+  navigateToFrontPage() {
+    
+  }
+
   render() {
 
     let helloText = "TEST DEFAULT VALUE"
-
+    console.log("APP STATE:",this.state);
     return (
+      
       <div className="App">
+
+        <LoginDialog {...this.props} open={this.state.loginDialogOpen} app={this.state.app}
+         handleClose={() => this.closeLogin() } stateChanger={ this.stateChanger.bind(this)} leavePage={()=>this.navigateToFrontPage()}/>
+
 
         <Router>
       <div>
-      
         <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className="grow">
             MyApp
           </Typography>
       
-            <Button className="menuButton" variant="contained" component={Link} to="/login" >Login</Button>
+            <Button className="menuButton" variant="contained" onClick={this.openLogin} >Login</Button>
             <Button className="menuButton" variant="contained" component={Link} to="/register" >Register</Button>
             <Button className="menuButton" variant="contained" component={Link} to="/" >Home</Button>
             <Button className="menuButton" variant="contained" component={Link} to="/logout" >logout</Button>
@@ -80,7 +106,7 @@ class App extends Component {
         <Route path="/posts/:postId" render={props => <Posts {...props} extra={helloText} appName={this.state.appName}/>} />
         <Route path="/register" component={Register} />
         <Route path="/test" render={props => <Test {...props} app={this.state.app} stateChanger={ ()=>this.stateChanger}/>} />
-        <Route path="/login" render={props=> <Login {...props} app={this.state.app} stateChanger={this.stateChanger.bind(this)} />} />
+        {/* <Route path="/login" render={props=> <Login {...props} app={this.state.app} stateChanger={this.stateChanger.bind(this)} />} /> */}
         <Route path="/profile" render={props=> <Profile {...props} app={this.state.app} stateChanger={this.stateChanger.bind(this)} />} />
         <Route path="/logout" component={withAuth(Logout)} />
         <Route exact path="/" render={props=> <Home {...props} app={this.state.app} stateChanger={ ()=> this.stateChanger()} />} />
