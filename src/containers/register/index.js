@@ -41,19 +41,15 @@ export default class Register extends PureComponent {
      }
 
   render() {
-
     return (
       <Paper className="paper">
-        <form onSubmit={this.handleSubmit}>
-            <FormControl margin="normal" required fullWidth>
-              <TextField className="textfield" label="username" onChange={this.handleChange("username")} />
-            </FormControl>
-          <FormControl margin="normal" required fullWidth>
-              <TextField className="textfield"  label="password" type="password" onChange={this.handleChange("password")} />  
-          </FormControl>                   
-          <Button className="button" type="submit">Register</Button>
-        </form>
-      </Paper>
+      <form className="form" onSubmit={this.handleSubmit}>
+            <h2> Register </h2>
+            <TextField className="textfield" label="username" onChange={this.handleChange("username")} />
+            <TextField className="textfield"  label="password" type="password" onChange={this.handleChange("password")} />                 
+        <Button className="button" type="submit">Submit</Button>
+      </form>
+    </Paper>
     )
   }
 }

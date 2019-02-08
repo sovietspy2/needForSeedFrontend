@@ -9,21 +9,45 @@ import Home from "./containers/home";
 import Login from "./containers/loginPage";
 import Posts from "./containers/posts";
 import Register from "./containers/register";
+import withAuth from './helpers/withAuth';
+import Logout from "./containers/logout";
+
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 class App extends Component {
+
+
 
   constructor(props) {
     super(props);
 
     this.state = {
-      appName: 'def'
+      app: {}
     };
   }
 
   stateChanger(obj) {
-    this.setState(obj);
+    debugger;
+    this.setState({app:obj});
   }
 
+
+  bottomClick() {
+    console.log("CLICKED BOTTOM");
+  }
 
   render() {
 
@@ -34,43 +58,51 @@ class App extends Component {
 
         <Router>
       <div>
-        <ul className="menu">
-          <li>
-            <Link to="/test">Test</Link>
-          </li>
-          <li>
-            <Link to="/">HOme</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/posts">Posts</Link>
-            </li>
-            <li>
-            <Link to="/register">Register</Link>
-              </li>
-        </ul>
+      
+        <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" className="grow">
+            MyApp
+          </Typography>
+      
+            <Button className="menuButton" variant="contained" component={Link} to="/login" >Login</Button>
+            <Button className="menuButton" variant="contained" component={Link} to="/register" >Register</Button>
+            <Button className="menuButton" variant="contained" component={Link} to="/" >Home</Button>
+            <Button className="menuButton" variant="contained" component={Link} to="/logout" >logout</Button>
+            <Button className="menuButton" variant="contained" component={Link} to="/test" >Hidden</Button>
 
-        <hr />
-        <p>{this.state.appName}</p>
+            
+        </Toolbar>
+      </AppBar>
         <Route path={`/posts/:postId`}
           render={props => <Posts {...props} extra={helloText} appName={this.state.appName}/>}
         />
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Home} app={this.state.app} stateChanger={this.stateChanger.bind(this)}/>
         <Route exact path="/register" component={Register} />
         <Route 
             path="/test" 
-            render={props => <Test {...props} extra={helloText} />} />
+            render={props => <Test {...props} app={this.state.app} />} />
             
-            <Route path="/login" render={props=> <Login {...props} appName={this.state.appName} stateChanger={this.stateChanger.bind(this)} />} />
+            <Route path="/login" render={props=> <Login {...props} app={this.state.app} stateChanger={this.stateChanger.bind(this)} />} />
+            <Route path="/logout" component={withAuth(Logout)} />
       </div>
     </Router>
 
-
+    <BottomNavigation
+        showLabels
+      >
+        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+        <BottomNavigationAction label="Nearby" onClick={this.bottomClick}icon={<LocationOnIcon />} />
+      </BottomNavigation>
       </div>
     );
   }
+
+
+
 }
 
 export default App;
+
+//<Route path="/secret" component={withAuth(Secret)} />
