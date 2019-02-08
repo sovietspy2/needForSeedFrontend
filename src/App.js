@@ -11,6 +11,7 @@ import Posts from "./containers/posts";
 import Register from "./containers/register";
 import withAuth from './helpers/withAuth';
 import Logout from "./containers/logout";
+import Profile from "./containers/profile";
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -35,13 +36,14 @@ class App extends Component {
     super(props);
 
     this.state = {
-      app: {}
+      app: []
     };
   }
 
-  stateChanger(obj) {
-    debugger;
-    this.setState({app:obj});
+  stateChanger(key,value) {
+    this.setState(state => {
+      return state.app[key] = value;
+    });
   }
 
 
@@ -70,6 +72,7 @@ class App extends Component {
             <Button className="menuButton" variant="contained" component={Link} to="/" >Home</Button>
             <Button className="menuButton" variant="contained" component={Link} to="/logout" >logout</Button>
             <Button className="menuButton" variant="contained" component={Link} to="/test" >Hidden</Button>
+            <Button className="menuButton" variant="contained" component={Link} to="/profile" >Profile</Button>
 
             
         </Toolbar>
@@ -78,12 +81,13 @@ class App extends Component {
           render={props => <Posts {...props} extra={helloText} appName={this.state.appName}/>}
         />
         <Route exact path="/" component={Home} app={this.state.app} stateChanger={this.stateChanger.bind(this)}/>
+
         <Route exact path="/register" component={Register} />
         <Route 
             path="/test" 
             render={props => <Test {...props} app={this.state.app} />} />
-            
             <Route path="/login" render={props=> <Login {...props} app={this.state.app} stateChanger={this.stateChanger.bind(this)} />} />
+            <Route path="/profile" render={props=> <Profile {...props} app={this.state.app} stateChanger={this.stateChanger.bind(this)} />} />
             <Route path="/logout" component={withAuth(Logout)} />
       </div>
     </Router>
