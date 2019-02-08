@@ -77,18 +77,13 @@ class App extends Component {
             
         </Toolbar>
       </AppBar>
-        <Route path={`/posts/:postId`}
-          render={props => <Posts {...props} extra={helloText} appName={this.state.appName}/>}
-        />
-        <Route exact path="/" component={Home} app={this.state.app} stateChanger={this.stateChanger.bind(this)}/>
-
-        <Route exact path="/register" component={Register} />
-        <Route 
-            path="/test" 
-            render={props => <Test {...props} app={this.state.app} />} />
-            <Route path="/login" render={props=> <Login {...props} app={this.state.app} stateChanger={this.stateChanger.bind(this)} />} />
-            <Route path="/profile" render={props=> <Profile {...props} app={this.state.app} stateChanger={this.stateChanger.bind(this)} />} />
-            <Route path="/logout" component={withAuth(Logout)} />
+        <Route path="/posts/:postId" render={props => <Posts {...props} extra={helloText} appName={this.state.appName}/>} />
+        <Route path="/register" component={Register} />
+        <Route path="/test" render={props => <Test {...props} app={this.state.app} stateChanger={ ()=>this.stateChanger}/>} />
+        <Route path="/login" render={props=> <Login {...props} app={this.state.app} stateChanger={this.stateChanger.bind(this)} />} />
+        <Route path="/profile" render={props=> <Profile {...props} app={this.state.app} stateChanger={this.stateChanger.bind(this)} />} />
+        <Route path="/logout" component={withAuth(Logout)} />
+        <Route exact path="/" render={props=> <Home {...props} app={this.state.app} stateChanger={ ()=> this.stateChanger()} />} />
       </div>
     </Router>
 
